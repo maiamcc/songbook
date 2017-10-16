@@ -1,9 +1,10 @@
 from csv import DictReader
 
-from pylatex import Command, Document, Package, Section, Subsection
+from pylatex import Command, Document, Package
+from pylatex.basic import NewLine
 from pylatex.utils import italic, NoEscape
 
-from latex_utils import label, link, newline, newpage
+from latex_utils import chapter, label, link
 
 # TODO: markdown-to-latex for my lyric files?
 
@@ -51,51 +52,50 @@ def songs_from_csv(csv_path):
     return songs
 
 
-def make_toc(songlist):
-    """Create a table of contents with links to relevent pages."""
-    toc = Section('Table of Contents')
-    for song in songlist:
-        toc.append(link(song.slug, song.title))
-        toc.append(newline())
-    return toc
+def add_song_to_doc(doc, song):
+    """Insert info for the given Song into the Document."""
+    doc.append(chapter(song.title))
+    # doc.append(label(song.slug))
+    doc.append('By ')
+    doc.append(italic(song.author))
+    doc.append(NewLine())
+    doc.append(song.lyrics())
 
+    return doc
 
-def make_songs(songlist):
-    """
-    Given a list of Song objects, return a list of Sections, each containing
-    the lyrics and info for a song.
-    """
-    output = []
-    for song in songlist:
-        sect = Section(song.title)
-        sect.append(label(song.slug))
-        sect.append('By')
-        sect.append(italic(song.author))
-        sect.append(newline())
-        sect.append(song.lyrics())
-
-        output.append(sect)
-
-    return output
-
-if __name__ == '__main__':
-    allsongs = songs_from_csv(CSV_PATH)
-
-    doc = Document()
+def set_up(doc):
+    """Add packages, set preliminary settings for this doc."""
+    # Add packages
     doc.preamble.append(Package('hyperref'))
+    doc.preamble.append(Package('titlesec'))
 
+    # Hide "Chapter 1" etc. (just show chapter name)
+    doc.preamble.append(NoEscape(r'\titleformat{\chapter}[display]'))
+    doc.preamble.append(NoEscape(r'{\normalfont\bfseries}{}{0pt}{\Huge}'))
+
+    # Ignore page numbers until we get to the actual body
+    doc.append(NoEscape(r'\pagenumbering{gobble}'))
+
+    # Title Info
     doc.preamble.append(Command('title', 'Maia\'s Songbook'))
     doc.preamble.append(Command('author', 'Maia McCormick'))
     doc.preamble.append(Command('date', NoEscape(r'\today')))
     doc.append(NoEscape(r'\maketitle'))
 
-    toc = make_toc(allsongs)
-    doc.append(toc)
+    # Table of Contents
+    doc.append(NoEscape(r'\tableofcontents'))
 
-    doc.append(newpage())
+    # Okay, show page numbers again
+    doc.append(NoEscape(r'\pagenumbering{arabic}'))
 
-    for song in make_songs(allsongs):
-        doc.append(song)
-        doc.append(newpage())
+    return doc
 
-    doc.generate_pdf('songbook', clean_tex=False)
+if __name__ == '__main__':
+    allsongs = songs_from_csv(CSV_PATH)
+
+    document = set_up(Document(documentclass='book'))
+
+    for song in allsongs:
+        document = add_song_to_doc(document, song)
+
+    document.generate_pdf('songbook', clean_tex=False)

@@ -1,4 +1,4 @@
-\documentclass{article}%
+\documentclass{book}%
 \usepackage[T1]{fontenc}%
 \usepackage[utf8]{inputenc}%
 \usepackage{lmodern}%
@@ -6,24 +6,21 @@
 \usepackage{lastpage}%
 %
 \usepackage{hyperref}%
+\usepackage{titlesec}%
+\titleformat{\chapter}[display]%
+{\normalfont\bfseries}{}{0pt}{\Huge}%
 \title{Maia's Songbook}%
 \author{Maia McCormick}%
 \date{\today}%
 %
 \begin{document}%
 \normalsize%
+\pagenumbering{gobble}%
 \maketitle%
-\section{Table of Contents}%
-\hyperref[letunionbeinallourhearts]{Let Union Be in All Our Hearts}%
-\newline%
-\hyperref[johnball]{John Ball}%
-\newline
-
-%
-\newpage%
-\section{Let Union Be in All Our Hearts}%
-\label{letunionbeinallourhearts}%
-By%
+\tableofcontents%
+\pagenumbering{arabic}%
+\chapter{Let Union Be in All Our Hearts}%
+By %
 \textit{trad.}%
 \newline%
 Come my lads and let's be jolly\newline%
@@ -39,7 +36,7 @@ We'll end it all in pleasure.\newline%
 Whack{-}folla{-}rolla{-}rye, too{-}ra{-}lie{-}doe (3x)\newline%
 While we are together.\newline%
 \newline%
-Old Kink Solomon in all his glory\newline%
+Old King Solomon in all his glory\newline%
 Told each wife a different story:\newline%
 In our cups we'll sing him glory\newline%
 While we are together.\newline%
@@ -58,12 +55,9 @@ Cease your quarreling and your fighting,\newline%
 Evil{-}speaking and backbiting.\newline%
 All these things take no delight in\newline%
 While we are together.\newline%
-
 %
-\newpage%
-\section{John Ball}%
-\label{johnball}%
-By%
+\chapter{John Ball}%
+By %
 \textit{Sydney Carter}%
 \newline%
 Who’ll be the lady,\newline%
@@ -82,7 +76,7 @@ Eve is the lady, Adam is the lord,\newline%
 When we are ruled by the love of another...\newline%
 (Repeat)\newline%
 \newline%
-Labor and spin, in fellowship, I say,\newline%
+Labor and spin for fellowship, I say,\newline%
 Labor and spin for the love of one another...\newline%
 (Repeat)\newline%
 \newline%
@@ -90,7 +84,5 @@ All will be ruled by fellowship, I say,\newline%
 When we are ruled by the love of one another...\newline%
 (Repeat)\newline%
 \newline%
-
 %
-\newpage%
 \end{document}

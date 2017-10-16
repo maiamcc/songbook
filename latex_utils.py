@@ -12,9 +12,7 @@ def link(labelname, text):
     return NoEscape(s)
 
 
-def newline():
-    return NoEscape(r'\newline')
+def chapter(chapter_name):
+	return NoEscape('\\chapter{{{chapter_name}}}'.
+		format(chapter_name=chapter_name))
 
-
-def newpage():
-    return NoEscape(r'\newpage')
