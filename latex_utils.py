@@ -13,6 +13,6 @@ def link(labelname, text):
 
 
 def chapter(chapter_name):
-	return NoEscape('\\chapter{{{chapter_name}}}'.
-		format(chapter_name=chapter_name))
+    return NoEscape('\\chapter{{{chapter_name}}}'.
+        format(chapter_name=chapter_name))
 

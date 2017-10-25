@@ -1,6 +1,10 @@
-from csv import DictReader
+# pylint:disable=redefined-outer-name
 
-from pylatex import Command, Document, Package
+from csv import DictReader
+from collections import defaultdict
+from typing import Dict, List
+
+from pylatex import Command, Document, Package, Section
 from pylatex.basic import NewLine
 from pylatex.utils import italic, NoEscape
 
@@ -12,6 +16,7 @@ CSV_PATH = 'songinfo.csv'
 TITLE_KEY = 'title'
 AUTHOR_KEY = 'author'
 LYRICPATH_KEY = 'lyricpath'
+TAG_PREFIX = 'tag_'
 
 class Song():
     """Contains relevant information about a single song."""
@@ -36,12 +41,21 @@ class Song():
         return ''.join(char.lower() for char in self.title if char.isalnum())
 
 
-def songs_from_csv(csv_path):
+def songs_from_csv(csv_path: str) -> (List[Song], Dict[str, List[Song]]):
     """Parse provided CSV into Song objects."""
     songs = []
+    tags = []
+    songs_by_tag = defaultdict(list)
+
     with open(csv_path) as csvfile:
         reader = DictReader(csvfile)
         for row in reader:
+
+            # first run: figure out which columns are tags ("tag_" prefix)
+            if not tags:
+                for k in row.keys():
+                    if k.startswith(TAG_PREFIX):
+                        tags.append(k)
             new_song = Song(
                             title=row[TITLE_KEY],
                             author=row[AUTHOR_KEY],
@@ -49,19 +63,27 @@ def songs_from_csv(csv_path):
                         )
             songs.append(new_song)
 
-    return songs
+            # Add song to list for any tags
+            for tag in tags:
+                if row.get(tag):
+                    # any non-falsey value counts as a hit for this tag
+                    songs_by_tag[tag].append(new_song)
+
+    # TODO: sort songs by title before returning
+    return songs, songs_by_tag
 
 
 def add_song_to_doc(doc, song):
     """Insert info for the given Song into the Document."""
     doc.append(chapter(song.title))
-    # doc.append(label(song.slug))
+    doc.append(label(song.slug))
     doc.append('By ')
     doc.append(italic(song.author))
     doc.append(NewLine())
     doc.append(song.lyrics())
 
     return doc
+
 
 def set_up(doc):
     """Add packages, set preliminary settings for this doc."""
@@ -90,12 +112,30 @@ def set_up(doc):
 
     return doc
 
+
+def make_indexes(doc, songs_by_tag):
+    doc.append(chapter('Indexes')) # ... indicies?
+    for tag, songs in songs_by_tag.items():
+        with doc.create(Section(readable_tag(tag))):
+            for song in songs:
+                doc.append(link(song.slug, song.title))
+    return doc
+
+
+def readable_tag(tagname):
+    """Return human-readable tag name."""
+    return tagname[len(TAG_PREFIX):].title()
+
+
 if __name__ == '__main__':
-    allsongs = songs_from_csv(CSV_PATH)
+    # TODO: it'd be nice and shiny if these were all methods on the document
+    allsongs, songs_by_tag = songs_from_csv(CSV_PATH)
 
     document = set_up(Document(documentclass='book'))
 
     for song in allsongs:
         document = add_song_to_doc(document, song)
+
+    document = make_indexes(document, songs_by_tag)
 
     document.generate_pdf('songbook', clean_tex=False)
