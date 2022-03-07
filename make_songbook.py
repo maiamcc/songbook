@@ -119,6 +119,7 @@ def make_indexes(doc, songs_by_tag):
         with doc.create(Section(readable_tag(tag))):
             for song in songs:
                 doc.append(link(song.slug, song.title))
+                doc.append(NewLine())
     return doc
 
 
