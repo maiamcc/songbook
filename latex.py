@@ -2,7 +2,7 @@ from pylatex import Command, Document, Package, Section
 from pylatex.basic import NewLine
 from pylatex.utils import italic, NoEscape
 
-from song import Song, TAG_PREFIX
+from song import Song
 
 
 class Songbook(Document):
@@ -49,16 +49,10 @@ class Songbook(Document):
     def make_indexes(self, songs_by_tag):
         self.append(chapter('Indexes'))  # ... indicies?
         for tag, songs in songs_by_tag.items():
-            with self.create(Section(readable_tag(tag))):
+            with self.create(Section(tag)):
                 for song in songs:
                     self.append(link(song.slug, song.title))
                     self.append(NewLine())
-
-
-# TODO: this should go elsewhere
-def readable_tag(tagname):
-    """Return human-readable tag name."""
-    return tagname[len(TAG_PREFIX):].title()
 
 
 ### UTIL FUNCTIONS ###

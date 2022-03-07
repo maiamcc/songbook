@@ -1,6 +1,6 @@
 from csv import DictReader
 from collections import defaultdict
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 CSV_PATH = 'songinfo.csv'
 TITLE_KEY = 'title'
@@ -8,12 +8,14 @@ AUTHOR_KEY = 'author'
 LYRICPATH_KEY = 'lyricpath'
 TAG_PREFIX = 'tag_'
 
-class Song():
+
+class Song:
     """Contains relevant information about a single song."""
-    def __init__(self, title, author, lyricpath):
+    def __init__(self, title, author, lyricpath, tags: Optional[List[str]] = None):
         self.title = title
         self.author = author
         self.lyricpath = lyricpath
+        self.tags = [readable_tag(tag) for tag in tags] if tags else []
 
         # for later
         # self.vocalrange = vocalrange
@@ -24,40 +26,56 @@ class Song():
         with open(self.lyricpath) as lyricfile:
             return lyricfile.read()
 
-
     @property
     def slug(self):
         """Return slug generated from Title suitable for use as link label."""
         return ''.join(char.lower() for char in self.title if char.isalnum())
 
 
-def songs_from_csv(csv_path: str) -> (List[Song], Dict[str, List[Song]]):
-    """Parse provided CSV into Song objects."""
-    songs = []
-    tags = []
-    songs_by_tag = defaultdict(list)
+class SongCollection:
+    """A way to describe a bunch of songs--largely for ease of ordering, grouping by tag, etc."""
 
-    with open(csv_path) as csvfile:
-        reader = DictReader(csvfile)
-        for row in reader:
+    @classmethod
+    def from_csv(cls, csv_path: str) -> "SongCollection":
+        """Parse provided CSV into Song objects."""
+        songs = []
+        tags = []
 
-            # first run: figure out which columns are tags ("tag_" prefix)
-            if not tags:
-                for k in row.keys():
-                    if k.startswith(TAG_PREFIX):
-                        tags.append(k)
-            new_song = Song(
-                            title=row[TITLE_KEY],
-                            author=row[AUTHOR_KEY],
-                            lyricpath=row[LYRICPATH_KEY]
-                        )
-            songs.append(new_song)
+        with open(csv_path) as csvfile:
+            reader = DictReader(csvfile)
+            for row in reader:
 
-            # Add song to list for any tags
-            for tag in tags:
-                if row.get(tag):
+                # first run: figure out which columns are tags ("tag_" prefix)
+                if not tags:
+                    for k in row.keys():
+                        if k.startswith(TAG_PREFIX):
+                            tags.append(k)
+
+                new_song = Song(
+                    title=row[TITLE_KEY],
+                    author=row[AUTHOR_KEY],
+                    lyricpath=row[LYRICPATH_KEY],
+
                     # any non-falsey value counts as a hit for this tag
-                    songs_by_tag[tag].append(new_song)
+                    tags=[tag for tag in tags if row.get(tag)]
+                )
+                songs.append(new_song)
 
-    # TODO: sort songs by title before returning
-    return songs, songs_by_tag
+        return cls(songs)
+
+    def __init__(self, songs: List[Song]):
+        self.songs = songs
+        self.by_tag = defaultdict(list)
+
+        for song in self.songs:
+            for tag in song.tags:
+                self.by_tag[tag].append(song)
+
+    # TODO: bet there's a fancy way to put the iterator straight on the class so I can
+    #   do "for song in my_collection" rather than "for song in my_collection.songs"
+    #   def __iter__(self): ...
+
+
+def readable_tag(tagname):
+    """Return human-readable tag name."""
+    return tagname[len(TAG_PREFIX):].title()
