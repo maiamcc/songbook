@@ -2,24 +2,12 @@
 
 # pylint:disable=redefined-outer-name
 
-from csv import DictReader
-from collections import defaultdict
-from typing import Dict, List
-
-from pylatex import Command, Document, Package, Section
-from pylatex.basic import NewLine
-from pylatex.utils import italic, NoEscape
-
-from latex import chapter, label, link, Songbook
+from latex import Songbook
 from song import songs_from_csv
 
 # TODO: markdown-to-latex for my lyric files?
 
 CSV_PATH = 'songinfo.csv'
-TITLE_KEY = 'title'
-AUTHOR_KEY = 'author'
-LYRICPATH_KEY = 'lyricpath'
-TAG_PREFIX = 'tag_'
 
 
 if __name__ == '__main__':
