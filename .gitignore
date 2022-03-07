@@ -3,3 +3,9 @@ __pycache__
 *.pyc
 *.tex
 *.pdf
+*.aux
+*.fdb*
+*.fls
+*.log
+*.out
+*.toc
