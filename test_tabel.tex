@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\graphicspath{ {./icons/} }
+
+
+% todo: make this support a checkmark?? ✔
+\newcommand*\chk[1]{%
+	\ifbool{#1}
+	  {x}
+	  { }%
+}
+
+\newcommand{\row}[5]{
+	\textbf{#1} & \chk{#2} & \chk{#3} & \chk{#4} & \chk{#5} \\
+	\hline
+}
+
+\begin{document}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta justo id purus accumsan euismod. Donec sed neque augue. Cras pharetra tincidunt elit quis aliquet. Praesent dignissim ornare justo, vitae maximus mi maximus at. Nam fermentum arcu metus, sit amet blandit neque venenatis eget. Quisque bibendum eros quis massa consectetur, vel aliquam est porttitor. Sed vel gravida nisi.
+
+Duis euismod tempus mollis. Suspendisse iaculis iaculis pulvinar. Maecenas facilisis lacus neque, sed sollicitudin diam rhoncus id. Duis tempor ex quis arcu pulvinar, at tempus neque lacinia. Ut quam est, rhoncus id velit in, porttitor tincidunt leo. Aenean eu nibh odio. Praesent sagittis, purus et malesuada blandit, sem orci auctor est, sit amet tincidunt purus est sit amet urna. Maecenas id velit lacinia, luctus mi non, aliquet risus. Nunc ornare augue risus, vel vulputate libero rutrum at. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam erat volutpat. Ut malesuada purus ac velit eleifend, sed gravida elit tincidunt. Cras in scelerisque sapien.
+\\
+\\
+\noindent\begin{tabularx}{\textwidth} {X|c|c|c|c|}
+ & \includegraphics[width=2em]{uplift}
+ & \includegraphics[width=2em]{sad}
+ & \includegraphics[width=2em]{silly}
+ & \includegraphics[width=2em]{banger} \\
+ \hline
+ \row{Bonnet and Shawl}{true}{false}{false}{false}
+ \row{Davy Cross}{false}{true}{false}{false}
+ \row{Cairo Town}{true}{false}{false}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+
+\end{tabularx}
+\end{document}

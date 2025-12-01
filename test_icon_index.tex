@@ -1,0 +1,56 @@
+\documentclass[a5paper]{book}%
+\usepackage[T1]{fontenc}%
+\usepackage[utf8]{inputenc}%
+\usepackage{lmodern}%
+\usepackage{textcomp}%
+\usepackage{lastpage}%
+\usepackage{scalerel}
+
+\usepackage{titlesec}%
+\titleformat{\chapter}[display]%
+{\normalfont\bfseries}{}{0pt}{\Huge}%
+
+
+\newcommand*{\icon}[1]{%
+  \includegraphics[height=1.3em]{#1}
+}
+
+\newcommand*{\iconSad}{%
+  \icon{icons/sad.png}
+}
+
+\newcommand*{\iconNoCh}{%
+  \icon{icons/no-chorus.png}
+}
+
+\newcommand*{\iconUplift}{%
+  \icon{icons/uplift.png}
+}
+
+\newcommand*{\iconEasy}{%
+  \icon{icons/easy.png}
+}
+
+\newcommand*{\iconBanger}{%
+  \icon{icons/banger.png}
+}
+
+\newcommand*{\iconSilly}{%
+  \icon{icons/silly.png}
+}
+
+\begin{document}%
+\normalsize%
+\pagenumbering{gobble}%
+
+\chapter{All Songs With Attributes}%
+
+% \noindent{\bfseries{Song Title}\hfill Attrs.\vspace \bigskipamount \par }
+\contentsline {chapter}{Adelaide}{\iconSad\iconNoCh} % no ch, sad
+\contentsline {chapter}{Alice and Jessie}{\iconSad} % sad
+\contentsline {chapter}{Bells of Norwich}{\iconUplift} % uplift
+\contentsline {chapter}{Bully In the Alley}{\iconEasy\iconBanger} % easy, banger
+\contentsline {chapter}{Itches in me Britches}{\iconSilly} % silly
+\contentsline {chapter}{Magalina}{\iconSilly\iconEasy} % silly, easy
+
+\end{document}
