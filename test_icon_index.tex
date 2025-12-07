@@ -8,14 +8,22 @@
 \usepackage{scalerel}
 \usepackage{tabularx}
 \usepackage{graphicx}
+\usepackage{ltablex}
 
 
 \usepackage{titlesec}%
 \titleformat{\chapter}[display]%
 {\normalfont\bfseries}{}{0pt}{\Huge}%
+\titlespacing*{\chapter}{0pt}{-50pt}{5pt}
 
 \graphicspath{ {./icons/} }
 
+
+% Formatting funcs
+\newcommand{\silentchapter}[1]{
+    \chapter*{#1}
+    \markboth{#1}{#1}
+}
 
 % Icon funcs
 
@@ -64,9 +72,7 @@
 \normalsize%
 \pagenumbering{gobble}%
 
-
-
-\chapter{All Songs With Attributes}%
+\silentchapter{All Songs With Attributes}%
 
 \noindent\begin{tabularx}{\textwidth} {X|c|c|c|c|}
  & \includegraphics[width=2em]{uplift}

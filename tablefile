@@ -1,0 +1,28 @@
+\begin{longtable}[l] {X|c|c|c|c|}
+ & \includegraphics[width=2em]{uplift}
+ & \includegraphics[width=2em]{sad}
+ & \includegraphics[width=2em]{silly}
+ & \includegraphics[width=2em]{banger} \\
+ \hline
+ \row{Bonnet and Shawl}{true}{false}{false}{false}
+ \row{Davy Cross}{false}{true}{false}{false}
+ \row{Cairo Town}{true}{false}{false}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+ \row{Valparaiso in a Rowboat}{false}{false}{true}{true}
+\end{tabularx}
