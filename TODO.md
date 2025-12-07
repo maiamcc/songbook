@@ -1,28 +1,15 @@
 # TODO
 
-## Basic functionality
-◻️ fix the awkward extra pages
+## Validating LaTex Layouts
+[ ] LaTex table with icon headers
+    [ ] that can span pages without looking dumb
+[ ] list all titles for a given category
+    [ ] including icons of other attributes
+    [ ] including a blank space for missing attributes for visual scanning?
 
-◻️ alphabetize entries
-
-◻️ page numbers in indices
-
-◻️ song range
-
-◻️ song author looks better
-
-◻️ ...tests?
-
-## Aesthetics
-◻️ make indices not be ugly
-
-◻️ indices don't need to show up in TOC
-
-◻️ a nice cover image or something
+## Compilation
+[ ] Python func to parse a csv -> compile a LaTex doc
+    [ ] alphabetize
 
 ## Bells and whistles
-◻️ better input format than a CSV -- maybe it can pull from my google spreadsheet?
-
-◻️ separate topic tags from core attribute tags, and have icons in the TOC/song title for the latter
-
-◻️ "by trad" isn't right
+[ ] could I pull this info down from a Google sheet?

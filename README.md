@@ -1,10 +1,11 @@
 # Songbook
-## Generating lyric-books, for nerds
+## Generating folk song lists and indices
+
+I want to know what songs are in my collection, and what they're like. What if I could programmatically generate an organized list(s) of rep by title, mood, etc. to stick in my songbook?
 
 ### The Vision
-1. song information set forth in a CSV: title, author, and so on, plus the path to a file containing song lyrics, and some categories: happy? sad? sea chantey? easy-to-pick-up chorus?
-2. lyric files for every song
-3. a simple command the run the program, and BAM:
-4. a shiny pdf (generated with LaTeX) of all of your song lyrics, plus a table of contexts and indexes by all of the categories you specified in the CSV, all with clickable links that bring you to the approriate song.
+1. song attributes set forth in a CSV: for each song, note whether it belongs to a limited handful of categories
+2. simple Python script to compile the CSV into a shiny LaTeX doc
+4. the generated LaTex document will contain a master list of all known songs + their attributes, plus lists for each individual attribute.
 5. ???
 6. profit!
