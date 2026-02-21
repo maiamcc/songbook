@@ -4,6 +4,8 @@
 ✅ LaTex table with icon headers
     ✅ that can span pages without looking dumb
     	◻️ repeat header row on new pages
+    ◻️ long title handling -- maybe things should be right justified?
+    ◻️ better tick mark maybe?
 ◻️ list all titles for a given category
     ◻️ including icons of other attributes
     ◻️ including a blank space for missing attributes for visual scanning?
@@ -13,4 +15,4 @@
     ◻️ alphabetize
 
 ## Bells and whistles
-◻️ could I pull this info down from a Google sheet?
+◻️ could I pull this info down from a Google sheet? Airtable?

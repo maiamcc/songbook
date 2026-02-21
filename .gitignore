@@ -9,4 +9,5 @@ __pycache__
 *.log
 *.out
 *.toc
+*.synctex.gz
 !test*.tex
