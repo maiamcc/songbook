@@ -1,5 +1,5 @@
 \documentclass[a5paper]{book}%
-\usepackage[margin=1cm]{geometry}
+\usepackage[margin=1cm, top=2cm]{geometry}
 \usepackage[T1]{fontenc}%
 \usepackage[utf8]{inputenc}%
 \usepackage{lmodern}%
@@ -9,6 +9,7 @@
 \usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{ltablex}
+\usepackage[table]{xcolor}
 
 
 \usepackage{titlesec}%
@@ -74,12 +75,24 @@
 
 \silentchapter{All Songs With Attributes}%
 
+\renewcommand{\arraystretch}{1.5}  % a little extra vertical space in cells
 \noindent\begin{tabularx}{\textwidth} {X|c|c|c|c|}
- & \includegraphics[width=2em]{uplift}
- & \includegraphics[width=2em]{sad}
- & \includegraphics[width=2em]{silly}
- & \includegraphics[width=2em]{banger} \\
- \hline
+
+% HEADER ROW (will be repeated on new pages)
+\rowcolor{lightgray}
+\textbf{\large{\centerline{TITLE}}}
+    % HALP how do i center these images vertically
+    & \includegraphics[width=2em]{uplift}
+    & \includegraphics[width=2em]{sad}
+    & \includegraphics[width=2em]{silly}
+    & \includegraphics[width=2em]{banger} \\[0.5em] % increase height of row -- do i even need this if i fix image placement?
+
+    % weh i like the gray header row but the double horiz line was also neat so?? can i not have both?
+    \hline
+    \hline
+    \endhead
+
+
  \row{Bonnet and Shawl}{true}{false}{false}{false}
  \row{Davy Cross}{false}{true}{false}{false}
  \row{Cairo Town}{true}{false}{false}{true}
